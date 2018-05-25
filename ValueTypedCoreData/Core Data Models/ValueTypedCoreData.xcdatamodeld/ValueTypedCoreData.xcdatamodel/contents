@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="14133" systemVersion="17E202" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="AuthorMO" representedClassName="AuthorMO" syncable="YES">
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="uuid" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="books" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="BookMO" inverseName="author" inverseEntity="BookMO" syncable="YES"/>
+    </entity>
+    <entity name="BookMO" representedClassName="BookMO" syncable="YES">
+        <attribute name="price" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="publisher" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="uuid" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="author" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="AuthorMO" inverseName="books" inverseEntity="AuthorMO" syncable="YES"/>
+        <relationship name="notes" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="NoteMO" inverseName="book" inverseEntity="NoteMO" syncable="YES"/>
+        <relationship name="store" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="StoreMO" inverseName="books" inverseEntity="StoreMO" syncable="YES"/>
+    </entity>
+    <entity name="NoteMO" representedClassName="NoteMO" syncable="YES">
+        <attribute name="content" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="createdAt" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="uuid" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="book" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="BookMO" inverseName="notes" inverseEntity="BookMO" syncable="YES"/>
+        <relationship name="user" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="UserMO" inverseName="notes" inverseEntity="UserMO" syncable="YES"/>
+    </entity>
+    <entity name="StoreMO" representedClassName="StoreMO" syncable="YES">
+        <attribute name="brand" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="uuid" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="books" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="BookMO" inverseName="store" inverseEntity="BookMO" syncable="YES"/>
+    </entity>
+    <entity name="UserMO" representedClassName="UserMO" syncable="YES">
+        <attribute name="email" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="username" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="uuid" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="notes" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="NoteMO" inverseName="user" inverseEntity="NoteMO" syncable="YES"/>
+    </entity>
+    <elements>
+        <element name="AuthorMO" positionX="-63" positionY="-18" width="128" height="90"/>
+        <element name="BookMO" positionX="-54" positionY="9" width="128" height="150"/>
+        <element name="NoteMO" positionX="-36" positionY="45" width="128" height="120"/>
+        <element name="StoreMO" positionX="-18" positionY="63" width="128" height="90"/>
+        <element name="UserMO" positionX="0" positionY="72" width="128" height="105"/>
+    </elements>
+</model>
