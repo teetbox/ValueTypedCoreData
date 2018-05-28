@@ -18,7 +18,7 @@ extension AuthorMO {
 
     @NSManaged public var uuid: String
     @NSManaged public var name: String?
-    @NSManaged public var books: NSSet?
+    @NSManaged public var books: Set<BookMO>?
 
 }
 

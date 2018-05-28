@@ -18,7 +18,7 @@ extension StoreMO {
 
     @NSManaged public var uuid: String
     @NSManaged public var brand: String?
-    @NSManaged public var books: NSSet?
+    @NSManaged public var books: Set<BookMO>?
 
 }
 

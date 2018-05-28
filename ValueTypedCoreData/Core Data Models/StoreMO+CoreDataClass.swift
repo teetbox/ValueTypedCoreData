@@ -17,7 +17,7 @@ extension StoreMO: ManagedObjectProtocol {
     func toEntity() -> Store? {
         var store = Store(id: uuid)
         store.brand = brand
-        store.books = (books?.allObjects as? [BookMO])?.compactMap { $0.toEntity() }
+        store.books = books?.compactMap { $0.toEntity() }
         return store
     }
 }
@@ -26,9 +26,7 @@ extension Store: ManagedObjectConvertible {
     func toManagedObject(context: NSManagedObjectContext) -> StoreMO? {
         let store = StoreMO.getOrCreate(withId: uuid, in: context)
         store.brand = brand
-        if let books = books?.compactMap({ $0.toManagedObject(context: context) }) {
-            store.books = NSSet(array: books)
-        }
+        store.books = Set(books?.compactMap({ $0.toManagedObject(context: context) }) ?? [])
         return store
     }
 }

@@ -20,7 +20,7 @@ extension BookMO {
     @NSManaged public var price: Double
     @NSManaged public var publisher: String?
     @NSManaged public var title: String?
-    @NSManaged public var notes: NSSet?
+    @NSManaged public var notes: Set<NoteMO>?
     @NSManaged public var author: AuthorMO?
     @NSManaged public var store: StoreMO?
 

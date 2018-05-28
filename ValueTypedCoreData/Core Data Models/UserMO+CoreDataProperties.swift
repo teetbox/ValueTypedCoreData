@@ -19,7 +19,7 @@ extension UserMO {
     @NSManaged public var uuid: String
     @NSManaged public var email: String?
     @NSManaged public var username: String?
-    @NSManaged public var notes: NSSet?
+    @NSManaged public var notes: Set<NoteMO>?
 
 }
 

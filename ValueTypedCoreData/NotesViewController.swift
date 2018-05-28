@@ -15,10 +15,7 @@ class NotesViewController: UIViewController {
     
     private var notes: [Note]? {
         didSet {
-            guard let noteSet = notes else {
-                return
-            }
-            navigationItem.title = "\(notes?.count ?? 0) notes"
+            guard let noteSet = notes else { return }
             notes = noteSet.sorted { $0.createdAt! > $1.createdAt! }
         }
     }
@@ -29,6 +26,7 @@ class NotesViewController: UIViewController {
         view.backgroundColor = .white
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(handleAdd))
         
+        navigationItem.title = "\(book?.notes?.count ?? 0) notes"
         bookTitle.text = book?.title
         bookAuthor.text = book?.author?.name
         bookPublisher.text = book?.publisher
@@ -121,7 +119,8 @@ class NotesViewController: UIViewController {
         dataModel.fetchNotes(for: book) { notes in
             self.notes = notes
             self.tableView.reloadData()
-
+            self.navigationItem.title = "\(notes?.count ?? 0) notes"
+            
             // Update book's notes state
             self.book?.notes = notes
         }
@@ -165,13 +164,16 @@ extension NotesViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            guard let note = notes?.remove(at: indexPath.row) else { return }
+            guard let note = notes?.remove(at: indexPath.row) else {
+                return
+            }
+
+            dataModel.delete(note: note, completion: { _ in })
+            tableView.deleteRows(at: [indexPath], with: .fade)
+            navigationItem.title = "\(notes?.count ?? 0) notes"
             
             // Update book's notes state
             book?.notes = notes
-            self.navigationItem.title = "\(notes?.count ?? 0) notes"
-            dataModel.delete(note: note, completion: { _ in })
-            tableView.deleteRows(at: [indexPath], with: .fade)
         }
     }
     
